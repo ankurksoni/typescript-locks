@@ -1,0 +1,26 @@
+{
+  "name": "typescript-locks",
+  "version": "1.0.0",
+  "description": "Listing down different types of locks that makes sense to implement in Node.js + typescript at backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:simple-lock": "ts-node src/simpleLock.ts",
+    "start:queue-lock": "ts-node src/queueLock.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankurksoni/typescript-locks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ankurksoni/typescript-locks/issues"
+  },
+  "homepage": "https://github.com/ankurksoni/typescript-locks#readme",
+  "devDependencies": {
+    "@types/node": "^22.15.18",
+    "ts-node": "^10.9.2"
+  }
+}
