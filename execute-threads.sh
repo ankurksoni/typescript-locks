@@ -16,11 +16,9 @@ while true; do
     echo -e "${YELLOW}2) npm run start:queue-lock (QueueLock thread simulation)${NC}"
     echo -e "${YELLOW}3) npm run start:semaphore-lock (SemaphoreLock thread simulation)${NC}"
     echo -e "${YELLOW}4) npm run start:read-write-lock (ReadWriteLock thread simulation)${NC}"
-    echo -e "${YELLOW}5) npm run start:dev${NC}"
-    echo -e "${YELLOW}6) npm run start:prod${NC}"
-    echo -e "${YELLOW}7) Exit${NC}"
+    echo -e "${YELLOW}5) Exit${NC}"
     echo -e "${BLUE}==============================${NC}"
-    read -p "Choose an option [1-7]: " option
+    read -p "Choose an option [1-5]: " option
 
     case $option in
         1)
@@ -40,14 +38,6 @@ while true; do
             npm run start:readwrite-lock
             ;;
         5)
-            echo -e "${GREEN}Running: npm run start:dev${NC}"
-            npm run start:dev
-            ;;
-        6)
-            echo -e "${GREEN}Running: npm run start:prod${NC}"
-            npm run start:prod
-            ;;
-        7)
             echo -e "${RED}Exiting...${NC}"
             exit 0
             ;;

@@ -42,7 +42,7 @@
 📁 src/
    ├── QueueLock.ts        # FIFO lock implementation & demo
    ├── semaphoreLock.ts    # Semaphore lock implementation & demo
-   └── readWriteLock       # ReadWriteLock implementation & demo
+   └── readWriteLock.ts    # ReadWriteLock implementation & demo
 📄 execute-threads.sh      # Interactive shell script for npm commands
 📄 README.md               # Project documentation (this file)
 ```
@@ -60,19 +60,17 @@ chmod +x ./execute-threads.sh
 
 **Menu Options:**
 
-| Option | Command                        | Description                            |
-|--------|--------------------------------|----------------------------------------|
-| 1      | npm start:simple-lock          | Run SimpleLock thread simulation       |
-| 2      | npm run start:queue-lock       | Run QueueLock thread simulation        |
-| 3      | npm run start:semaphore-lock   | Run SemaphoreLock thread simulation    |
-| 4      | npm run start:read-write-lock  | Run ReadWriteLock thread simulation    |
-| 5      | npm run start:dev              | Start in development mode              |
-| 6      | npm run start:prod             | Start in production mode               |
-| 7      | Exit                           | Exit the menu                          |
+| Option | Command                          | Description                            |
+|--------|----------------------------------|----------------------------------------|
+| 1      | npm start:simple-lock            | Run SimpleLock thread simulation       |
+| 2      | npm run start:queue-lock         | Run QueueLock thread simulation        |
+| 3      | npm run start:semaphore-lock     | Run SemaphoreLock thread simulation    |
+| 4      | npm run start:readwrite-lock     | Run ReadWriteLock thread simulation    |
+| 5      | Exit                             | Exit the menu                          |
 
 ---
 
-## 🧩 ReadWriteLock (src/readWriteLock)
+## 🧩 ReadWriteLock (src/readWriteLock.ts)
 
 `ReadWriteLock` allows multiple concurrent readers or exclusive access for a single writer. Writers are prioritized over readers when both are waiting.
 
