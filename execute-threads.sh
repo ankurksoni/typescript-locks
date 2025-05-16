@@ -30,8 +30,8 @@ while true; do
             npm run start:queue-lock
             ;;
         3)
-            echo -e "${GREEN}Running: npm run start:dev${NC}"
-            npm run start:dev
+            echo -e "${GREEN}Running: npm run start:semaphore-lock${NC}"
+            npm run start:semaphore-lock
             ;;
         4)
             echo -e "${GREEN}Running: npm run start:prod${NC}"

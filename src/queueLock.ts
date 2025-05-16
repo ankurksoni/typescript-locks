@@ -22,13 +22,7 @@ class QueueLock {
                      * The release function must be called to release the lock.
                      * It will serve the next waiting thread in the queue, if any.
                      */
-                    resolve(() => {
-                        this.locked = false;
-                        if (this.queue.length > 0) {
-                            const next = this.queue.shift();
-                            next?.();
-                        }
-                    });
+                    resolve(() => this.release());
                 } else {
                     // If locked, queue this acquire attempt
                     this.queue.push(tryAcquire);
@@ -36,6 +30,17 @@ class QueueLock {
             };
             tryAcquire();
         });
+    }
+
+    /**
+     * Releases the lock, allowing the next waiting thread to acquire it.
+     */
+    private release() {
+        this.locked = false;
+        if (this.queue.length > 0) {
+            const next = this.queue.shift();
+            next?.();
+        }
     }
 }
 
