@@ -21,6 +21,7 @@
   "homepage": "https://github.com/ankurksoni/typescript-locks#readme",
   "devDependencies": {
     "@types/node": "^22.15.18",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
