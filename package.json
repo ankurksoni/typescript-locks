@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:simple-lock": "ts-node src/simpleLock.ts",
     "start:queue-lock": "ts-node src/queueLock.ts",
-    "start:semaphore-lock": "ts-node src/semaphoreLock.ts"
+    "start:semaphore-lock": "ts-node src/semaphoreLock.ts",
+    "start:readwrite-lock": "ts-node src/readWriteLock"
   },
   "repository": {
     "type": "git",

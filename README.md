@@ -14,6 +14,7 @@
 |------------------------------- |-----------------------------------------------------------------------------|
 | 🏷️ **QueueLock**              | Strict FIFO async lock for fairness and mutual exclusion                     |
 | 🏷️ **SemaphoreLock**          | Limit concurrency to N async operations at a time                            |
+| 🏷️ **ReadWriteLock**          | Multiple readers or exclusive writer, with writer preference                 |
 | 🧵 **Thread Simulation**       | Simulate multiple async functions ("threads") competing for a lock           |
 | 🖥️ **Interactive Shell Script**| Colorful menu to run various npm start commands and lock demos               |
 
@@ -26,7 +27,7 @@
 | SimpleLock     | ❌        | Basic mutual exclusion          | Easy to implement           |
 | QueueLock      | ✅        | FIFO fairness for async tasks   | Prevents starvation         |
 | SemaphoreLock  | ➖        | Limit concurrency (N at a time) | Resource pool management    |
-| RWLock         | ➖        | Read/write separation           | High read, low write ratio  |
+| ReadWriteLock  | ➖        | Read/write separation           | High read, low write ratio  |
 
 > **Legend:**
 > - ✅ = Fair (FIFO)
@@ -40,7 +41,8 @@
 ```text
 📁 src/
    ├── QueueLock.ts        # FIFO lock implementation & demo
-   └── semaphoreLock.ts    # Semaphore lock implementation & demo
+   ├── semaphoreLock.ts    # Semaphore lock implementation & demo
+   └── readWriteLock       # ReadWriteLock implementation & demo
 📄 execute-threads.sh      # Interactive shell script for npm commands
 📄 README.md               # Project documentation (this file)
 ```
@@ -58,14 +60,41 @@ chmod +x ./execute-threads.sh
 
 **Menu Options:**
 
-| Option | Command                        | Description                        |
-|--------|--------------------------------|------------------------------------|
-| 1      | npm start:simple-lock          | Run SimpleLock thread simulation   |
-| 2      | npm run start:queue-lock       | Run QueueLock thread simulation    |
-| 3      | npm run start:semaphore-lock   | Run SemaphoreLock thread simulation|
-| 4      | npm run start:dev              | Start in development mode          |
-| 5      | npm run start:prod             | Start in production mode           |
-| 6      | Exit                           | Exit the menu                      |
+| Option | Command                        | Description                            |
+|--------|--------------------------------|----------------------------------------|
+| 1      | npm start:simple-lock          | Run SimpleLock thread simulation       |
+| 2      | npm run start:queue-lock       | Run QueueLock thread simulation        |
+| 3      | npm run start:semaphore-lock   | Run SemaphoreLock thread simulation    |
+| 4      | npm run start:read-write-lock  | Run ReadWriteLock thread simulation    |
+| 5      | npm run start:dev              | Start in development mode              |
+| 6      | npm run start:prod             | Start in production mode               |
+| 7      | Exit                           | Exit the menu                          |
+
+---
+
+## 🧩 ReadWriteLock (src/readWriteLock)
+
+`ReadWriteLock` allows multiple concurrent readers or exclusive access for a single writer. Writers are prioritized over readers when both are waiting.
+
+```typescript
+const lock = new ReadWriteLock();
+
+// For reading:
+const releaseRead = await lock.acquireRead();
+try {
+  // read section
+} finally {
+  releaseRead();
+}
+
+// For writing:
+const releaseWrite = await lock.acquireWrite();
+try {
+  // write section
+} finally {
+  releaseWrite();
+}
+```
 
 ---
 
