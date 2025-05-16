@@ -1,26 +1,84 @@
-# TypeScript Locks Demo
+# 🚦 TypeScript Locks Demo
 
-This project demonstrates advanced locking mechanisms in TypeScript, simulating thread-like behavior using async functions. It includes a strict FIFO queue-based lock (`QueueLock`) and a colorful shell script for running different npm start commands interactively.
+![TypeScript](https://img.shields.io/badge/TypeScript-4.x-blue?logo=typescript)
+![Node.js](https://img.shields.io/badge/Node.js-18.x-green?logo=node.js)
+![Shell](https://img.shields.io/badge/Shell-Bash-informational?logo=gnu-bash)
 
-## Features
-
-- **QueueLock**: A strict FIFO async lock for mutual exclusion, ensuring only one async function ("thread") can access a critical section at a time, and that threads are served in the order they requested the lock.
-- **Thread Simulation**: Multiple async functions attempt to acquire and release the lock, simulating concurrent access and demonstrating fairness.
-- **Interactive Shell Script**: `execute-threads.sh` provides a colorful menu to run various npm start commands and returns to the menu after each run.
+> **A playground for learning and comparing different lock mechanisms in TypeScript, with interactive CLI tools!**
 
 ---
 
-## QueueLock (src/QueueLock.ts)
+## ✨ Features
 
-- Implements a strict FIFO mutual exclusion lock for async operations.
-- Each "thread" (async function) is queued and served in the order it requested the lock.
-- The lock is released after the critical section, allowing the next waiting thread to proceed.
+| Feature                        | Description                                                                 |
+|------------------------------- |-----------------------------------------------------------------------------|
+| 🏷️ **QueueLock**              | Strict FIFO async lock for fairness and mutual exclusion                     |
+| 🧵 **Thread Simulation**       | Simulate multiple async functions ("threads") competing for a lock           |
+| 🖥️ **Interactive Shell Script**| Colorful menu to run various npm start commands and lock demos               |
 
-### Usage
+---
+
+## 🔒 Lock Types Comparison
+
+| Lock Type    | Fairness | Use Case Example                | Star Feature                |
+|--------------|----------|---------------------------------|-----------------------------|
+| SimpleLock   | ❌        | Basic mutual exclusion          | Easy to implement           |
+| QueueLock    | ✅        | FIFO fairness for async tasks   | Prevents starvation         |
+| Semaphore    | ➖        | Limit concurrency (N at a time) | Resource pool management    |
+| RWLock       | ➖        | Read/write separation           | High read, low write ratio  |
+
+> **Legend:**
+> - ✅ = Fair (FIFO)
+> - ❌ = Not fair (race possible)
+> - ➖ = Depends on implementation
+
+---
+
+## 📦 Project Structure
+
+```text
+📁 src/
+   └── QueueLock.ts      # FIFO lock implementation & demo
+📄 execute-threads.sh    # Interactive shell script for npm commands
+📄 README.md             # Project documentation (this file)
+```
+
+---
+
+## 🔗 Usage
+
+### 🖥️ Interactive Script: `execute-threads.sh`
+
+```bash
+chmod +x ./execute-threads.sh
+./execute-threads.sh
+```
+
+**Menu Options:**
+
+| Option | Command                        | Description                        |
+|--------|--------------------------------|------------------------------------|
+| 1      | npm start:simple-lock          | Run SimpleLock thread simulation   |
+| 2      | npm run start:queue-lock       | Run QueueLock thread simulation    |
+| 3      | npm run start:dev              | Start in development mode          |
+| 4      | npm run start:prod             | Start in production mode           |
+| 5      | Exit                           | Exit the menu                      |
+
+---
+
+## 🧩 QueueLock (src/QueueLock.ts)
 
 ```typescript
-const lock = new QueueLock();
+/**
+ * QueueLock provides a strict FIFO (First-In-First-Out) mutual exclusion lock for async operations.
+ * Each thread (async function) is queued and served in the order it requested the lock.
+ */
+class QueueLock {
+    // ... see source for full docs ...
+}
 
+// Usage
+const lock = new QueueLock();
 async function executeDemo(threadId: number) {
     const release = await lock.acquire();
     try {
@@ -29,59 +87,27 @@ async function executeDemo(threadId: number) {
         release();
     }
 }
-
-Promise.all([
-    executeDemo(1),
-    executeDemo(2),
-    // ...
-]);
 ```
 
 ---
 
-## Interactive Script: `execute-threads.sh`
+## 📝 Requirements
 
-This script provides a colorful, interactive menu to run different npm start commands. After each command finishes, the menu is shown again, allowing you to run multiple commands in sequence without restarting the script.
-
-### Menu Options
-
-1. **npm start (default)**: Runs the default start script defined in your `package.json`.
-2. **npm run start:dev**: Runs the development start script (if defined in your `package.json`).
-3. **npm run start:prod**: Runs the production start script (if defined in your `package.json`).
-4. **npm run queue-lock**: Runs the QueueLock thread simulation (see below).
-5. **Exit**: Exits the menu.
-
-### How to Use
-
-1. Make the script executable (already done if you followed setup):
-   ```bash
-   chmod +x ./execute-threads.sh
-   ```
-2. Run the script:
-   ```bash
-   ./execute-threads.sh
-   ```
-3. Select an option by entering the corresponding number. The selected npm command will run, and when it finishes, you'll return to the menu.
-
-### Customization
-- You can add more menu options or npm scripts by editing `execute-threads.sh` and `package.json`.
-- The script uses ANSI color codes for a better terminal experience.
+- [Node.js](https://nodejs.org/) (18.x or later recommended)
+- [npm](https://www.npmjs.com/)
+- [Bash](https://www.gnu.org/software/bash/) (for `execute-threads.sh`)
 
 ---
 
-## Project Structure
+## 📚 Further Reading
 
-- `src/QueueLock.ts`: Queue-based lock implementation and thread simulation.
-- `execute-threads.sh`: Interactive shell script for running npm commands.
-- `README.md`: Project documentation.
-
----
-
-## Requirements
-- Node.js and npm
-- Bash shell (for `execute-threads.sh`)
+- [MDN: Concurrency model and Event Loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
+- [Wikipedia: Mutual Exclusion](https://en.wikipedia.org/wiki/Mutual_exclusion)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 
 ---
 
-## License
+## ⚖️ License
+
 MIT
+
