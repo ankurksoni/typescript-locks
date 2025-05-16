@@ -15,7 +15,7 @@ class QueueLock {
      */
     public async acquire(): Promise<() => void> {
         return new Promise((resolve) => {
-            const acquire = () => {
+            const tryAcquire = () => {
                 if (!this.locked) {
                     this.locked = true;
                     /**
@@ -31,10 +31,10 @@ class QueueLock {
                     });
                 } else {
                     // If locked, queue this acquire attempt
-                    this.queue.push(acquire);
+                    this.queue.push(tryAcquire);
                 }
             };
-            acquire();
+            tryAcquire();
         });
     }
 }
